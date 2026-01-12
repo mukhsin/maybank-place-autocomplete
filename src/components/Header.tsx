@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
       >
         <Space align="center" style={{ width: "100%" }}>
           <Title level={3} style={{ color: "#fff", margin: 0 }}>
-            Place Autocomplete
+            Maybank Place Autocomplete
           </Title>
         </Space>
       </div>
