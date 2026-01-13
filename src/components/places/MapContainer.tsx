@@ -5,15 +5,61 @@ import {
   Map as GoogleMap,
   InfoWindow,
   Marker,
+  useMap,
 } from "@vis.gl/react-google-maps";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface MapProps {
   place: Place | null;
 }
 
-export const MapContainer: React.FC<MapProps> = ({ place }) => {
+function MapContent({ place }: MapProps) {
   const [showInfoWindow, setShowInfoWindow] = useState(false);
+  const map = useMap();
+
+  useEffect(() => {
+    if (map && place) {
+      map.panTo({
+        lat: place.geometry.location.lat,
+        lng: place.geometry.location.lng,
+      });
+      map.setZoom(15);
+    }
+  }, [map, place]);
+
+  return (
+    <>
+      <Marker
+        position={{
+          lat: place.geometry.location.lat,
+          lng: place.geometry.location.lng,
+        }}
+        onClick={() => setShowInfoWindow(true)}
+      />
+
+      {showInfoWindow && (
+        <InfoWindow
+          position={{
+            lat: place.geometry.location.lat,
+            lng: place.geometry.location.lng,
+          }}
+          onCloseClick={() => setShowInfoWindow(false)}
+        >
+          <div style={{ padding: "8px", minWidth: "200px" }}>
+            <h3 style={{ margin: "0 0 4px 0", fontSize: "16px" }}>
+              {place.name}
+            </h3>
+            <p style={{ margin: "0", color: "#666" }}>
+              {place.formatted_address}
+            </p>
+          </div>
+        </InfoWindow>
+      )}
+    </>
+  );
+}
+
+export const MapContainer: React.FC<MapProps> = ({ place }) => {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   if (!apiKey) {
@@ -47,60 +93,15 @@ export const MapContainer: React.FC<MapProps> = ({ place }) => {
     );
   }
 
-  if (!place) {
-    return (
-      <Card
-        // title="Map"
-        variant="outlined"
-        style={{
-          height: "300px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Empty description="Select a place to see on map" />
-      </Card>
-    );
-  }
-
   return (
     <Card title="Map" variant="outlined">
       <APIProvider apiKey={apiKey}>
         <GoogleMap
-          defaultCenter={{
-            lat: place.geometry.location.lat,
-            lng: place.geometry.location.lng,
-          }}
-          defaultZoom={15}
+          defaultCenter={{ lat: -0.72917, lng: 113.9676 }}
+          defaultZoom={4}
           style={{ width: "100%", height: "400px" }}
         >
-          <Marker
-            position={{
-              lat: place.geometry.location.lat,
-              lng: place.geometry.location.lng,
-            }}
-            onClick={() => setShowInfoWindow(true)}
-          />
-
-          {showInfoWindow && (
-            <InfoWindow
-              position={{
-                lat: place.geometry.location.lat,
-                lng: place.geometry.location.lng,
-              }}
-              onCloseClick={() => setShowInfoWindow(false)}
-            >
-              <div style={{ padding: "8px", minWidth: "200px" }}>
-                <h3 style={{ margin: "0 0 4px 0", fontSize: "16px" }}>
-                  {place.name}
-                </h3>
-                <p style={{ margin: "0", color: "#666" }}>
-                  {place.formatted_address}
-                </p>
-              </div>
-            </InfoWindow>
-          )}
+          {place && <MapContent place={place} />}
         </GoogleMap>
       </APIProvider>
     </Card>

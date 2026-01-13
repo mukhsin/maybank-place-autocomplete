@@ -21,7 +21,7 @@ function AppContent() {
 
       if (error.includes("Google") || error.includes("API")) {
         notification.warning({
-          message: "Using Mock Data",
+          title: "Using Mock Data",
           description: "Google API is unavailable. Falling back to mock data.",
           duration: 4,
         });
@@ -32,7 +32,7 @@ function AppContent() {
   useEffect(() => {
     if (!import.meta.env.VITE_GOOGLE_MAPS_API_KEY) {
       notification.info({
-        message: "Mock Data Mode",
+        title: "Mock Data Mode",
         description:
           "No Google Maps API key found. Using mock data for demonstration.",
         duration: 5,

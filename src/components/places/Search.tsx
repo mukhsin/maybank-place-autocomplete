@@ -1,7 +1,3 @@
-import { SearchOutlined } from "@ant-design/icons";
-import { AutoComplete, Empty, message, Space, Spin } from "antd";
-import type React from "react";
-import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   clearError,
@@ -10,18 +6,17 @@ import {
   setSelectedPlace,
 } from "@/store/slices";
 import { fetchPlaceDetailsThunk, searchPlacePredictions } from "@/store/thunks";
-import { debounce, MOCK_PLACES } from "@/utils";
+import { debounce } from "@/utils";
+import { SearchOutlined } from "@ant-design/icons";
+import { AutoComplete, Empty, message, Space, Spin } from "antd";
+import type React from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {
-    predictions,
-    loading,
-    searchQuery,
-    error,
-    selectedPlace,
-    useGoogleApi,
-  } = useAppSelector((state) => state.places);
+  const { predictions, loading, error } = useAppSelector(
+    (state) => state.places,
+  );
 
   const [inputValue, setInputValue] = useState("");
 
