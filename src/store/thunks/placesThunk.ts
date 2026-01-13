@@ -1,10 +1,10 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   fetchPlaceDetails as fetchGoogleDetails,
   fetchPlacePredictions as fetchGooglePredictions,
 } from "@/services/googlePlacesApi";
 import type { Place, PlacePrediction } from "@/types/place";
 import { MOCK_PLACES } from "@/utils/constants";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const searchPlacePredictions = createAsyncThunk(
   "places/searchPredictions",

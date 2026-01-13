@@ -1,11 +1,18 @@
-import { message, notification } from "antd";
-import { Space as AntSpace, Col, Flex, Layout, Row } from "antd";
+import {
+  Space as AntSpace,
+  Col,
+  Flex,
+  Layout,
+  message,
+  notification,
+  Row,
+} from "antd";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import {
-  MapContainer,
   Header,
   MainLayout,
+  MapContainer,
   PlaceCard,
   Search,
 } from "@/components";

@@ -1,5 +1,3 @@
-import { Card, Empty, Space } from "antd";
-import type { Place } from "@/types";
 import {
   APIProvider,
   Map as GoogleMap,
@@ -7,7 +5,9 @@ import {
   Marker,
   useMap,
 } from "@vis.gl/react-google-maps";
-import { useState, useEffect } from "react";
+import { Card, Empty } from "antd";
+import { useEffect, useState } from "react";
+import type { Place } from "@/types";
 
 interface MapProps {
   place: Place | null;

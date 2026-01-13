@@ -1,3 +1,7 @@
+import { SearchOutlined } from "@ant-design/icons";
+import { AutoComplete, Empty, message, Space, Spin } from "antd";
+import type React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   clearError,
@@ -7,10 +11,6 @@ import {
 } from "@/store/slices";
 import { fetchPlaceDetailsThunk, searchPlacePredictions } from "@/store/thunks";
 import { debounce } from "@/utils";
-import { SearchOutlined } from "@ant-design/icons";
-import { AutoComplete, Empty, message, Space, Spin } from "antd";
-import type React from "react";
-import { useEffect, useMemo, useState } from "react";
 
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
