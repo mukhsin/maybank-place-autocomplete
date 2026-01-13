@@ -49,7 +49,7 @@ export const fetchPlaceDetailsThunk = createAsyncThunk(
         return await fetchMockPlaceDetails(placeId);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
       const details = await fetchGoogleDetails(placeId);
       return details;
@@ -96,7 +96,7 @@ async function fetchMockPredictions(query: string): Promise<PlacePrediction[]> {
 }
 
 async function fetchMockPlaceDetails(placeId: string): Promise<Place> {
-  await new Promise((resolve) => setTimeout(resolve, 200));
+  await new Promise((resolve) => setTimeout(resolve, 300));
 
   const mockPlace = MOCK_PLACES.find((p) => p.place_id === placeId);
 
