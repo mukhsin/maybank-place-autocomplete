@@ -22,5 +22,20 @@ export default defineConfig({
   build: {
     outDir: "dist",
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (
+            id.includes("@vis.gl/react-google-maps") ||
+            id.includes("@googlemaps")
+          ) {
+            return "google-maps";
+          }
+          if (id.includes("antd")) {
+            return "antd";
+          }
+        },
+      },
+    },
   },
 });

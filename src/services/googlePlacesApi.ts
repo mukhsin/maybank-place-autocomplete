@@ -8,9 +8,8 @@ async function ensureGoogleMapsLoaded(): Promise<void> {
   }
 
   if (!window.google?.maps) {
-    const { setOptions, importLibrary } = await import(
-      "@googlemaps/js-api-loader"
-    );
+    const { setOptions, importLibrary } =
+      await import("@googlemaps/js-api-loader");
 
     setOptions({
       key: apiKey,
@@ -19,10 +18,10 @@ async function ensureGoogleMapsLoaded(): Promise<void> {
     });
 
     await importLibrary("places");
-  }
 
-  if (!google.maps.places) {
-    throw new Error("Google Maps Places library is not available");
+    if (!google.maps.places) {
+      throw new Error("Google Maps Places library is not available");
+    }
   }
 }
 
@@ -34,9 +33,7 @@ export async function fetchPlacePredictions(
   }
 
   try {
-    console.log("mmm", "ensureGoogleMapsLoaded", "start");
     await ensureGoogleMapsLoaded();
-    console.log("mmm", "ensureGoogleMapsLoaded", "end");
     const autocompleteService = new google.maps.places.AutocompleteService();
 
     return new Promise((resolve, reject) => {
