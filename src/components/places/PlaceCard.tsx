@@ -50,16 +50,6 @@ export const PlaceCard: React.FC<PlaceCardProps> = ({ place }) => {
             </div>
           </div>
         )}
-
-        {/*{place.geometry && (
-          <div>
-            <strong>Coordinates:</strong>
-            <p style={{ marginBottom: 0 }}>
-              Lat: {place.geometry.location.lat}, Lng:{" "}
-              {place.geometry.location.lng}
-            </p>
-          </div>
-        )}*/}
       </Space>
     </Card>
   );

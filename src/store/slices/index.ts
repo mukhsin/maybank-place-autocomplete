@@ -6,5 +6,6 @@ export {
   clearPredictions,
   setSearchQuery,
   setSelectedPlace,
+  setUseGoogleApi,
 } from "./placesSlice";
 export { placesSliceReducer, searchPlacePredictions };

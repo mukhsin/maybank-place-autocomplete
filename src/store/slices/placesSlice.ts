@@ -9,6 +9,7 @@ interface PlacesState {
   loading: boolean;
   loadingDetails: boolean;
   error: string | null;
+  useGoogleApi: boolean;
 }
 
 const initialState: PlacesState = {
@@ -18,6 +19,7 @@ const initialState: PlacesState = {
   loading: false,
   loadingDetails: false,
   error: null,
+  useGoogleApi: !!import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
 };
 
 const placesSlice = createSlice({
@@ -36,6 +38,9 @@ const placesSlice = createSlice({
     clearPredictions: (state) => {
       state.predictions = [];
     },
+    setUseGoogleApi: (state, action: PayloadAction<boolean>) => {
+      state.useGoogleApi = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,11 +51,13 @@ const placesSlice = createSlice({
       .addCase(searchPlacePredictions.fulfilled, (state, action) => {
         state.loading = false;
         state.predictions = action.payload;
+        state.useGoogleApi = !!import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
       })
       .addCase(searchPlacePredictions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
         state.predictions = [];
+        state.useGoogleApi = false;
       });
 
     builder
@@ -61,10 +68,12 @@ const placesSlice = createSlice({
       .addCase(fetchPlaceDetailsThunk.fulfilled, (state, action) => {
         state.loadingDetails = false;
         state.selectedPlace = action.payload;
+        state.useGoogleApi = !!import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
       })
       .addCase(fetchPlaceDetailsThunk.rejected, (state, action) => {
         state.loadingDetails = false;
         state.error = action.payload as string;
+        state.useGoogleApi = false;
       });
   },
 });
@@ -74,6 +83,7 @@ export const {
   setSelectedPlace,
   clearError,
   clearPredictions,
+  setUseGoogleApi,
 } = placesSlice.actions;
 export const placesSliceReducer = placesSlice.reducer;
 export type { PlacesState };

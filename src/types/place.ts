@@ -13,6 +13,12 @@ export interface Place {
   };
   types?: string[];
   rating?: number;
+  photos?: google.maps.places.PlacePhoto[];
+  opening_hours?: {
+    open_now: boolean;
+    periods?: google.maps.places.PlaceOpeningHoursPeriod[];
+  };
+  reviews?: google.maps.places.PlaceReview[];
 }
 
 /**

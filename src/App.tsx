@@ -1,10 +1,11 @@
-import { Space as AntSpace, Col, Flex, Layout, message, Row } from "antd";
+import { message, notification } from "antd";
+import { Space as AntSpace, Col, Flex, Layout, Row } from "antd";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import {
+  MapContainer,
   Header,
   MainLayout,
-  MapContainer,
   PlaceCard,
   Search,
 } from "@/components";
@@ -17,18 +18,33 @@ function AppContent() {
   useEffect(() => {
     if (error && !error.includes("not found")) {
       message.error(error);
+
+      if (error.includes("Google") || error.includes("API")) {
+        notification.warning({
+          message: "Using Mock Data",
+          description: "Google API is unavailable. Falling back to mock data.",
+          duration: 4,
+        });
+      }
     }
   }, [error]);
+
+  useEffect(() => {
+    if (!import.meta.env.VITE_GOOGLE_MAPS_API_KEY) {
+      notification.info({
+        message: "Mock Data Mode",
+        description:
+          "No Google Maps API key found. Using mock data for demonstration.",
+        duration: 5,
+      });
+    }
+  }, []);
 
   return (
     <Layout>
       <Header />
       <MainLayout>
         <Row gutter={[24, 24]}>
-          {/*<Col xs={24} md={24} lg={12}>
-            <Search />
-          </Col>*/}
-
           <Col xs={24} md={24} lg={12}>
             <Flex gap="middle" vertical>
               <Search />

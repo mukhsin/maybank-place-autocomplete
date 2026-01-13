@@ -9,14 +9,19 @@ import {
   setSearchQuery,
   setSelectedPlace,
 } from "@/store/slices";
-import { searchPlacePredictions } from "@/store/thunks";
+import { fetchPlaceDetailsThunk, searchPlacePredictions } from "@/store/thunks";
 import { debounce, MOCK_PLACES } from "@/utils";
 
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { predictions, loading, error } = useAppSelector(
-    (state) => state.places,
-  );
+  const {
+    predictions,
+    loading,
+    searchQuery,
+    error,
+    selectedPlace,
+    useGoogleApi,
+  } = useAppSelector((state) => state.places);
 
   const [inputValue, setInputValue] = useState("");
 
@@ -44,13 +49,10 @@ export const Search: React.FC = () => {
 
   const handleSelect = (
     value: string,
-    // option: { value: string; label: string; description: string },
+    option: { value: string; label: string; description: string },
   ) => {
-    const place = MOCK_PLACES.find((p) => p.place_id === value);
-    if (place) {
-      dispatch(setSelectedPlace(place));
-    }
-    setInputValue(place?.name || "");
+    dispatch(fetchPlaceDetailsThunk(value));
+    setInputValue(option.label);
   };
 
   const handleClear = () => {
