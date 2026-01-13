@@ -1,5 +1,5 @@
-export { AppHeader, Header } from "./Header";
-export { Content, MainLayout } from "./MainLayout";
-export { MapContainer } from "./MapContainer";
-export { PlaceCard } from "./PlaceCard";
-export { Search } from "./Search";
+export { AppHeader, Header } from "./layouts/Header";
+export { Content, MainLayout } from "./layouts/MainLayout";
+export { MapContainer } from "./places/MapContainer";
+export { PlaceCard } from "./places/PlaceCard";
+export { Search } from "./places/Search";

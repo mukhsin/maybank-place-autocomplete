@@ -18,6 +18,7 @@
   "dependencies": {
     "@biomejs/biome": "^2.3.11",
     "@reduxjs/toolkit": "^2.11.2",
+    "@vis.gl/react-google-maps": "^1.7.1",
     "antd": "^6.1.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
