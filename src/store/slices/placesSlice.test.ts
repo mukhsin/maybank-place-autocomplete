@@ -17,6 +17,7 @@ describe("placesSlice", () => {
     loading: false,
     loadingDetails: false,
     error: null,
+    useGoogleApi: false,
   };
 
   it("should return initial state", () => {

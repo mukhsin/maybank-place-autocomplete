@@ -8,16 +8,18 @@ async function ensureGoogleMapsLoaded(): Promise<void> {
   }
 
   if (!window.google?.maps) {
-    const loader = await import("@googlemaps/js-api-loader");
+    const { setOptions, importLibrary } = await import(
+      "@googlemaps/js-api-loader"
+    );
 
-    await loader.default.load({
-      apiKey,
-      version: "weekly",
+    setOptions({
+      key: apiKey,
+      v: "weekly",
       libraries: ["places"],
     });
-  }
 
-  await google.maps.importLibrary("places");
+    await importLibrary("places");
+  }
 
   if (!google.maps.places) {
     throw new Error("Google Maps Places library is not available");

@@ -13,7 +13,7 @@ describe("googlePlacesApi", () => {
   });
 
   it("should return empty array for empty query", async () => {
-    const result = await fetchPlacePredictions("", "test-key");
+    const result = await fetchPlacePredictions("");
     expect(result).toEqual([]);
     expect(mockFetch).not.toHaveBeenCalled();
   });
@@ -27,11 +27,10 @@ describe("googlePlacesApi", () => {
         }),
     });
 
-    await fetchPlacePredictions("test query", "test-key");
+    await fetchPlacePredictions("test query");
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(mockFetch.mock.calls[0][0]).toContain("input=test+query");
-    expect(mockFetch.mock.calls[0][0]).toContain("key=test-key");
   });
 
   it("should handle ZERO_RESULTS status", async () => {
@@ -43,7 +42,7 @@ describe("googlePlacesApi", () => {
         }),
     });
 
-    const result = await fetchPlacePredictions("non-existent", "test-key");
+    const result = await fetchPlacePredictions("non-existent");
     expect(result).toEqual([]);
   });
 
@@ -56,7 +55,7 @@ describe("googlePlacesApi", () => {
         }),
     });
 
-    await expect(fetchPlacePredictions("test", "test-key")).rejects.toThrow(
+    await expect(fetchPlacePredictions("test")).rejects.toThrow(
       "Google Places API error: INVALID_REQUEST - Invalid request",
     );
   });
@@ -75,11 +74,10 @@ describe("googlePlacesApi", () => {
         }),
     });
 
-    await fetchPlaceDetails("test-id", "test-key");
+    await fetchPlaceDetails("test-id");
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(mockFetch.mock.calls[0][0]).toContain("place_id=test-id");
-    expect(mockFetch.mock.calls[0][0]).toContain("key=test-key");
   });
 
   it("should request all required fields", async () => {
@@ -95,7 +93,7 @@ describe("googlePlacesApi", () => {
         }),
     });
 
-    await fetchPlaceDetails("test-id", "test-key");
+    await fetchPlaceDetails("test-id");
 
     expect(mockFetch.mock.calls[0][0]).toContain(
       "place_id,name,formatted_address,geometry,types,rating,photos,reviews,opening_hours",
